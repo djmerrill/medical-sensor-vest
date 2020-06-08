@@ -1,8 +1,15 @@
+"""
+Just reads from the hard-coded port name.
+I'm getting around 550 samples per second.
+This doesn't save to disk yet.
+TODO Refactor to use docopt.
+"""
+
 import time
 
 import serial
 
-ser = serial.Serial('/dev/ttyACM0')
+ser = serial.Serial('/dev/ttyACM0') # TODO This port name should be a parameter. 
 
 
 line_count = 0
