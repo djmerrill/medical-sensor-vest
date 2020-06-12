@@ -22,6 +22,11 @@ const char DATAZ1 = 0x37; //Z-Axis Data 1
 //SPI read buffer
 unsigned char values[10];
 
+//Serial buffer
+char ser_buff[25];
+char zero_char = 64;
+char newline_char = 65;
+
 //acceleration values
 int x,y,z;
 //char x,y,z;
@@ -70,9 +75,7 @@ void setup_sensor(int CS) {
 
 void setup() {
   Serial.begin(1152000); // baudrate might be an issue
-  delay(5000);
-  Serial.println("x y z");
-  
+  delay(1000);
   setup_sensor(CS1);
   delay(50);
   setup_sensor(CS2);
@@ -85,93 +88,72 @@ void setup() {
   delay(50);
   setup_sensor(CS6);
   delay(50);
+  Serial.println("x y z");
 }
 
 void loop() {
-
-  readRegister(DATAX0, 6, values, CS1);
+  readRegister(DATAX0, 1, values, CS1);
   x = (int) word(values[1], values[0]);
   y = (int) word(values[3], values[2]);
   z = (int) word(values[5], values[4]);
-//  Serial.print("\n1 ");
-//  Serial.print("\n ");
-//  Serial.println("1");
-//  Serial.print(x, DEC);
-//  Serial.print(" ");
-//  Serial.print(y,DEC);
-//  Serial.print(" ");
-//  Serial.println(z,DEC);
+  ser_buff[0] = (char) x;
+  ser_buff[1] = (char) y;
+  ser_buff[2] = (char) z;
+  ser_buff[3] = newline_char;
+  
 
-  //delay(1);
-//  delayMicroseconds(10);
-
-  readRegister(DATAX0, 6, values, CS2);
+  readRegister(DATAX0, 2, values, CS2);
   x = (int) word(values[1], values[0]);
   y = (int) word(values[3], values[2]);
   z = (int) word(values[5], values[4]);
-//  Serial.println("2");
-//  Serial.print(x, DEC);
-//  Serial.print(" ");
-//  Serial.print(y,DEC);
-//  Serial.print(" ");
-//  Serial.println(z,DEC);
+  ser_buff[4] = (char) x;
+  ser_buff[5] = (char) y;
+  ser_buff[6] = (char) z;
+  ser_buff[7] = newline_char;
 
-  //delay(1);
-//  delayMicroseconds(10);
-
-  readRegister(DATAX0, 6, values, CS3);
+  readRegister(DATAX0, 3, values, CS3);
   x = (int) word(values[1], values[0]);
   y = (int) word(values[3], values[2]);
   z = (int) word(values[5], values[4]);
-//  Serial.println("3");
-//  Serial.print(x, DEC);
-//  Serial.print(" ");
-//  Serial.print(y,DEC);
-//  Serial.print(" ");
-//  Serial.println(z,DEC);
+  ser_buff[8] = (char) x;
+  ser_buff[9] = (char) y;
+  ser_buff[10] = (char) z;
+  ser_buff[11] = newline_char;
 
-  //delay(1);
-//  delayMicroseconds(10);
-
-  readRegister(DATAX0, 6, values, CS4);
+  readRegister(DATAX0, 4, values, CS4);
   x = (int) word(values[1], values[0]);
   y = (int) word(values[3], values[2]);
   z = (int) word(values[5], values[4]);
-//  Serial.println("4");
-//  Serial.print(x, DEC);
-//  Serial.print(" ");
-//  Serial.print(y,DEC);
-//  Serial.print(" ");
-//  Serial.println(z,DEC);
+  ser_buff[12] = (char) x;
+  ser_buff[13] = (char) y;
+  ser_buff[14] = (char) z;
+  ser_buff[15] = newline_char;
 
-  //delay(1);
-//  delayMicroseconds(10);
-
-  readRegister(DATAX0, 6, values, CS5);
+  readRegister(DATAX0, 5, values, CS5);
   x = (int) word(values[1], values[0]);
   y = (int) word(values[3], values[2]);
   z = (int) word(values[5], values[4]);
-//  Serial.println("5");
-//  Serial.print(x, DEC);
-//  Serial.print(" ");
-//  Serial.print(y,DEC);
-//  Serial.print(" ");
-//  Serial.println(z,DEC);
-
-  // delay(1);
-//  delayMicroseconds(10);
+  ser_buff[16] = (char) x;
+  ser_buff[17] = (char) y;
+  ser_buff[18] = (char) z;
+  ser_buff[19] = newline_char;
 
   readRegister(DATAX0, 6, values, CS6);
   x = (int) word(values[1], values[0]);
   y = (int) word(values[3], values[2]);
   z = (int) word(values[5], values[4]);
-//  Serial.println("6");
-//  Serial.print(x, DEC);
-//  Serial.print(" ");
-//  Serial.print(y,DEC);
-//  Serial.print(" ");
-//  Serial.println(z,DEC);
-  Serial.write("1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx1xx2xx3xx4xx5xx6xx\r\n");
-  // delay(1);
-//  delayMicroseconds(10);
+  
+  ser_buff[20] = (char) x;
+  ser_buff[21] = (char) y;
+  ser_buff[22] = (char) z;
+  ser_buff[23] = newline_char;
+
+  for (int i = 0; i < 24; i += 1) {
+    if (ser_buff[i] == '\0')
+      ser_buff[i] = zero_char;
+  }
+
+  ser_buff[24] = '\0';
+
+  Serial.println(ser_buff);
 }
