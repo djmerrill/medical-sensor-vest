@@ -1,6 +1,5 @@
 """
 Just reads from the hard-coded port name.
-I'm getting around 550 samples per second.
 This doesn't save to disk yet.
 TODO Refactor to use docopt.
 """
@@ -9,13 +8,18 @@ import time
 
 import serial
 
-ser = serial.Serial('/dev/ttyACM0') # TODO This port name should be a parameter. 
-
+ser0 = serial.Serial('/dev/ttyACM0') # TODO This port name should be a parameter. 
+ser1 = serial.Serial('/dev/ttyACM1') # TODO This port name should be a parameter. 
+ser2 = serial.Serial('/dev/ttyACM2') # TODO This port name should be a parameter. 
 
 line_count = 0
-start_time = time.time()
+start_time = None
 while True:
-    line = ser.readline();
+    if start_time is None:
+        start_time = time.time()
+    line = ser0.read(4);
+    line1 = ser1.read(4);
+    line2 = ser2.read(4);
     line_count += 1
 
     if line_count % 500 == 0:
