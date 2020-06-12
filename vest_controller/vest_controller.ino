@@ -23,7 +23,10 @@ const char DATAZ1 = 0x37; //Z-Axis Data 1
 unsigned char values[10];
 
 //Serial buffer
+// I use a char array because it is 10x faster than using the Arduino built in String type
 char ser_buff[25];
+
+// Redefine these character so that the Arduino serial code plays nice with the raw values
 char zero_char = 64;
 char newline_char = 65;
 
@@ -99,7 +102,7 @@ void loop() {
   ser_buff[0] = (char) x;
   ser_buff[1] = (char) y;
   ser_buff[2] = (char) z;
-  ser_buff[3] = newline_char;
+  ser_buff[3] = newline_char; // These "new lines" are not really needed because there is a frame marker of '\r\n' from Serial.println() at the end of the frame
   
 
   readRegister(DATAX0, 2, values, CS2);
@@ -148,12 +151,15 @@ void loop() {
   ser_buff[22] = (char) z;
   ser_buff[23] = newline_char;
 
+  // We need to replace the '\0' so that Serial.println() will send the whole string.
   for (int i = 0; i < 24; i += 1) {
     if (ser_buff[i] == '\0')
       ser_buff[i] = zero_char;
   }
 
+  // This should be the only '\0' in the array
   ser_buff[24] = '\0';
 
+  // Serial.println() adds a "\r\n". This maps to 13, 10 in ASCII.
   Serial.println(ser_buff);
 }
