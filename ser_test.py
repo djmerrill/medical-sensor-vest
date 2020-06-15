@@ -42,6 +42,7 @@ frame_count = 0
 start_time = None
 
 _ = ser0.readline()
+_ = ser1.readline()
 
 
 ser0_data = []
@@ -53,7 +54,7 @@ def check_end_frame(data):
     return data[-3] == newline_char and data[-1] == 10 and data[-2] == 13
 
 def check_data(data):
-    if check_end_frame(ser0_data):
+    if check_end_frame(data):
         data.append(newline_char)
         data.append(time.time())
         data.append(newline_char)
