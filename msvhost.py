@@ -9,6 +9,7 @@ Options:
     --version       Show version.
     -n PORTS        Number of ports [default: 1]
     -t SECONDS      Seconds to record data [default: 10]
+    -d SECONDS      Seconds to delay start of recording (optional)
     -s              Suppress debug messages to stdout.
 """
 
@@ -22,6 +23,10 @@ from docopt import docopt
 
 
 def main(arguments):
+    if '-d' in arguments:
+        print('Waiting ' + arguments['-d'] + ' seconds')
+        time.sleep(float(arguments['-d']))
+
     # Save the data from band
     # The file name should be a command line option
     def save_data(data, filename):
@@ -115,20 +120,13 @@ def main(arguments):
                     print('\t' + str(frame_count / active_ports / (current_time - start_time)) + ' samples per sensor per second')
                     print('\tLast line: ' + str([str(d) for d in line]))
 
-    visualize = False
 
-    if visualize:
-        # Just counting for testing visulization
-        counts = [0]*256
-        for d in ser0_data:
-            counts[d] += 1
-
-        # Print the histogram for testing
-        for i, c in enumerate(counts):
-            print(str(i) + ': ' + str(c))
 
     for i, data in enumerate(datas):
         save_data(data, str(i) + '_data.txt')
+
+    print('Finished')
+    exit(0)
 
 
 if __name__ == '__main__':
