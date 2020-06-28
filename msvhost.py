@@ -23,7 +23,7 @@ from docopt import docopt
 
 
 def main(arguments):
-    if '-d' in arguments:
+    if '-d' in arguments and arguments['-d'] is not None:
         print('Waiting ' + arguments['-d'] + ' seconds')
         time.sleep(float(arguments['-d']))
 
@@ -34,7 +34,7 @@ def main(arguments):
             for i, d in enumerate(data):
                 # fix the mapping
                 if d == newline_char:
-                    f.write('\n')
+                   f.write('\n')
                 elif d == zero_char:
                     f.write('0 ')
                 else:
@@ -81,9 +81,9 @@ def main(arguments):
 
     def check_data(data):
         if check_end_frame(data):
-            data.append(newline_char)
+            data.append('\n')
             data.append(time.time())
-            data.append(newline_char)
+            data.append('\n')
 
     frame_count = 0
     start_time = None
