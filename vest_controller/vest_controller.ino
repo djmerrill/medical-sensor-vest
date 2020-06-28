@@ -34,7 +34,7 @@ char newline_char = 65;
 int x,y,z;
 //char x,y,z;
 
-SPISettings settings(10000, MSBFIRST, SPI_MODE3);
+SPISettings settings(1000000, MSBFIRST, SPI_MODE3);
 
 void writeRegister(char registerAdress, char value, int CS){
   //Chip select LOW to write to chip
@@ -95,61 +95,45 @@ void setup() {
 }
 
 void loop() {
-  readRegister(DATAX0, 1, values, CS1);
-  x = (int) word(values[1], values[0]);
-  y = (int) word(values[3], values[2]);
-  z = (int) word(values[5], values[4]);
-  ser_buff[0] = (char) x;
-  ser_buff[1] = (char) y;
-  ser_buff[2] = (char) z;
-  ser_buff[3] = newline_char; // These "new lines" are not really needed because there is a frame marker of '\r\n' from Serial.println() at the end of the frame
+  readRegister(DATAX0, 6, values, CS1);
+//  x = (int) word(values[1], values[0]);
+//  y = (int) word(values[3], values[2]);
+//  z = (int) word(values[5], values[4]);
+  ser_buff[0] = values[0];
+  ser_buff[1] = values[2];
+  ser_buff[2] = values[4];
+//  ser_buff[3] = newline_char; // These "new lines" are not really needed because there is a frame marker of '\r\n' from Serial.println() at the end of the frame
   
 
-  readRegister(DATAX0, 2, values, CS2);
-  x = (int) word(values[1], values[0]);
-  y = (int) word(values[3], values[2]);
-  z = (int) word(values[5], values[4]);
-  ser_buff[4] = (char) x;
-  ser_buff[5] = (char) y;
-  ser_buff[6] = (char) z;
-  ser_buff[7] = newline_char;
+  readRegister(DATAX0, 6, values, CS2);
+  ser_buff[3] = values[0];
+  ser_buff[4] = values[2];
+  ser_buff[5] = values[4];
+//  ser_buff[7] = newline_char;
 
-  readRegister(DATAX0, 3, values, CS3);
-  x = (int) word(values[1], values[0]);
-  y = (int) word(values[3], values[2]);
-  z = (int) word(values[5], values[4]);
-  ser_buff[8] = (char) x;
-  ser_buff[9] = (char) y;
-  ser_buff[10] = (char) z;
-  ser_buff[11] = newline_char;
+  readRegister(DATAX0, 6, values, CS3);
+  ser_buff[6] = values[0];
+  ser_buff[7] = values[2];
+  ser_buff[8] = values[4];
+//  ser_buff[11] = newline_char;
 
-  readRegister(DATAX0, 4, values, CS4);
-  x = (int) word(values[1], values[0]);
-  y = (int) word(values[3], values[2]);
-  z = (int) word(values[5], values[4]);
-  ser_buff[12] = (char) x;
-  ser_buff[13] = (char) y;
-  ser_buff[14] = (char) z;
-  ser_buff[15] = newline_char;
+  readRegister(DATAX0, 6, values, CS4);
+  ser_buff[9] = values[0];
+  ser_buff[10] = values[2];
+  ser_buff[11] = values[4];
+//  ser_buff[15] = newline_char;
 
-  readRegister(DATAX0, 5, values, CS5);
-  x = (int) word(values[1], values[0]);
-  y = (int) word(values[3], values[2]);
-  z = (int) word(values[5], values[4]);
-  ser_buff[16] = (char) x;
-  ser_buff[17] = (char) y;
-  ser_buff[18] = (char) z;
-  ser_buff[19] = newline_char;
+  readRegister(DATAX0, 6, values, CS5);
+  ser_buff[12] = values[0];
+  ser_buff[13] = values[2];
+  ser_buff[14] = values[4];
+//  ser_buff[19] = newline_char;
 
   readRegister(DATAX0, 6, values, CS6);
-  x = (int) word(values[1], values[0]);
-  y = (int) word(values[3], values[2]);
-  z = (int) word(values[5], values[4]);
-  
-  ser_buff[20] = (char) x;
-  ser_buff[21] = (char) y;
-  ser_buff[22] = (char) z;
-  ser_buff[23] = newline_char;
+  ser_buff[15] = values[0];
+  ser_buff[16] = values[2];
+  ser_buff[17] = values[4];
+  ser_buff[18] = newline_char;
 
   // We need to replace the '\0' so that Serial.println() will send the whole string.
   for (int i = 0; i < 24; i += 1) {
@@ -158,7 +142,7 @@ void loop() {
   }
 
   // This should be the only '\0' in the array
-  ser_buff[24] = '\0';
+  ser_buff[19] = '\0';
 
   // Serial.println() adds a "\r\n". This maps to 13, 10 in ASCII.
   Serial.println(ser_buff);
