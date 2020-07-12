@@ -1,0 +1,104 @@
+Medical Sensor Vest
+
+5 July 2020
+
+11:48 AM
+Lex Merrill Standing 1
+	Pre
+	BP 122/69
+	HR 62
+
+	Post
+	BP 113/69
+	HR 63
+
+11:55 AM
+Lex Merrill Walking 1
+	Pre
+	BP 112/67
+	HR 62
+
+	Post
+	BP 120/68
+	HR 62
+
+12:02 AM
+Lex Merrill Sitting 1
+	Pre
+	BP 117/69
+	HR 57
+
+	Post
+	BP 117/70
+	HR 60
+
+
+6 July 2020
+
+4:52 PM
+Lex Merrill Sitting 2
+	Pre
+	BP 109/64
+	HR 69
+
+	Post
+	BP 111/64
+	HR 70
+
+Lex Merrill Standing 2
+	Pre
+	BP 119/69
+	HR 79
+
+	Post
+	BP 122/71
+	HR 73
+
+5:06 PM
+
+Lex Merrill Walking 2
+	Pre 
+	BP 125/75
+	HR 75
+
+	Post
+	BP 137 / 74
+	HR 78
+
+7 July 2020
+
+2:01 PM
+Lex Merrill Sitting 3
+	Pre
+	BP 102/59
+	HR 58
+
+	Note: stomach contractions
+
+	Post 
+	BP 105/61
+	HR 60
+
+2:21 PM
+
+Lex Merrill Standing 3
+	Pre
+	BP 115/65
+	HR 66
+
+	Post
+	BP 116/71
+	HR 65
+
+2:23 PM
+
+Lex Merrill Walking 3
+	Pre
+	BP 110/72
+	HR 66
+
+	note: Program apeared to "freeze" around 129 seconds, but I continued the experiement and the program reported that it saved the data. There may be missing samples in the last minute of data
+
+	Post
+	BP 127/70
+	HR 67
