@@ -64,3 +64,41 @@ Lex Merrill Walking 2
 	Post
 	BP 137 / 74
 	HR 78
+
+7 July 2020
+
+2:01 PM
+Lex Merrill Sitting 3
+	Pre
+	BP 102/59
+	HR 58
+
+	Note: stomach contractions
+
+	Post 
+	BP 105/61
+	HR 60
+
+2:21 PM
+
+Lex Merrill Standing 3
+	Pre
+	BP 115/65
+	HR 66
+
+	Post
+	BP 116/71
+	HR 65
+
+2:23 PM
+
+Lex Merrill Walking 3
+	Pre
+	BP 110/72
+	HR 66
+
+	note: Program apeared to "freeze" around 129 seconds, but I continued the experiement and the program reported that it saved the data. There may be missing samples in the last minute of data
+
+	Post
+	BP 127/70
+	HR 67
