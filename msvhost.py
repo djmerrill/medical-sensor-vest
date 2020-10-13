@@ -8,6 +8,7 @@ Options:
     -h --help       Show this message.
     --version       Show version.
     -n PORTS        Number of ports [default: 1]
+    -c ZERO_CHAR    Zero character value [default: 128]
     -t SECONDS      Seconds to record data [default: 10]
     -d SECONDS      Seconds to delay start of recording (optional)
     -s              Suppress debug messages to stdout.
@@ -60,8 +61,8 @@ def main(arguments):
     # I know this is weird, but this remapping is so the Arduino serial functions work correctly
     # These value can change if needed
     # The newline in particular might not be needed at all
-    zero_char = 64
-    newline_char = 65
+    zero_char = int(arguments['-c'])
+    newline_char = None # 65
 
 
     # attempt to syncronize
@@ -75,9 +76,10 @@ def main(arguments):
         datas.append([])
 
     def check_end_frame(data):
-        if len(data) < 3:
+        if len(data) < 6:
             return False
-        return data[-3] == newline_char and data[-1] == 10 and data[-2] == 13
+        #return data[-3] == newline_char and data[-1] == 10 and data[-2] == 13
+        return data[-1] == 10 and data[-2] == 13 and data[-3] == 10 and data[-4] == 13 and data[-5] == 10 and data[-6] == 13
 
     def check_data(data):
         if check_end_frame(data):
@@ -98,12 +100,12 @@ def main(arguments):
             # record start time, the Arduino might not start right away so we should wait for the first good read
             if start_time is None:
                 start_time = time.time()
-            line = ser.read(16);
+            line = ser.read(16); # 16 seems to give a good speed experimentally. Could play with this or make a parameter
             assert len(line) == 16
 
             # I'm just saving it like this for testing
             for d in line:
-                if check_end_frame(datas[i]):
+                if check_end_frame(datas[i]): # Check each character to see if it ends a frame
                     frame_count += 1
                 check_data(datas[i])
                 datas[i].append(d)
